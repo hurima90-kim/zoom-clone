@@ -24,4 +24,13 @@ const server = http.createServer(app);
 // WebSocket 서버사용을 위한 준비
 const wss = new WebSocket.Server({ server });
 
+wss.on("connection", (socket) => {
+  console.log("Connected to Browser✅");
+  socket.on("close", () => console.log("Disconnected from Browser ❌"));
+  socket.on("message", (message) => {
+    console.log(message);
+  });
+  socket.send("Hello!!");
+});
+
 server.listen(3000, handleListen);
